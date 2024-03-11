@@ -25,25 +25,30 @@ function Count() {
     setCount((c) => c + step);
   }
 
-  function stepMin() {
-    setStep((s) => s - 1);
-  }
-
-  function stepPlus() {
-    setStep((s) => s + 1);
+  function handleReset() {
+    setStep(1);
+    setCount(0);
   }
 
   return (
     <>
       <div>
-        <button onClick={stepMin}>-</button>
-        <span>Step: {step}</span>
-        <button onClick={stepPlus}>+</button>
+        <input
+          type='range'
+          value={step}
+          onChange={(e) => setStep(Number(e.target.value))}
+        />
+        <span>{step}</span>
       </div>
 
       <div>
         <button onClick={countMin}>-</button>
-        <span>Count: {count}</span>
+        <input
+          type='number'
+          value={count}
+          onChange={(e) => setCount(Number(e.target.value))}
+          placeholder='Count'
+        />
         <button onClick={countPlus}>+</button>
       </div>
 
@@ -55,6 +60,13 @@ function Count() {
           : 'Today is '}
         {date.toDateString()}
       </p>
+
+      <button
+        onClick={handleReset}
+        className={count === 0 && step === 1 ? 'hide' : ''}
+      >
+        Reset
+      </button>
     </>
   );
 }
